@@ -31,15 +31,15 @@ class custom extends modules {
 	}
 	public function is_active(): bool{
 		// no script set
-		if(!$this->get_setting('custom_scripts')->run_type()->get_data()){
+		if(!$this->get_setting('custom_scripts')->get_data()){
 			return false;
 		}
 		// no script set
-		if(!is_array($this->get_setting('custom_scripts')->run_type()->get_data())){
+		if(!is_array($this->get_setting('custom_scripts')->get_data())){
 			return false;
 		}
 		// no script set
-		if(is_array($this->get_setting('custom_scripts')->run_type()->get_data()) && count($this->get_setting('custom_scripts')->run_type()->get_data()) === 0){
+		if(is_array($this->get_setting('custom_scripts')->get_data()) && count($this->get_setting('custom_scripts')->get_data()) === 0){
 			return false;
 		}
 
@@ -76,13 +76,13 @@ class custom extends modules {
 			->set_description(__('Snippet will be saved in a .JS-file and attached.', 'sv_tracking_manager'))
 			->load_type('textarea');
 
-		add_action('update_option_'.$this->get_setting('custom_scripts')->run_type()->get_field_id(), array($this, 'setting_updated'), 10, 2);
+		add_action('update_option_'.$this->get_setting('custom_scripts')->get_field_id(), array($this, 'setting_updated'), 10, 2);
 
 		return $this;
 	}
 	protected function register_scripts(): custom {
 		if($this->is_active()){
-			foreach($this->get_setting('custom_scripts')->run_type()->get_data() as $script){
+			foreach($this->get_setting('custom_scripts')->get_data() as $script){
 				if(strlen($script['id']) > 0 && strlen($script['url']) > 0){
 					$this->get_script($script['id'])
 						->set_path($script['url'])
@@ -96,11 +96,13 @@ class custom extends modules {
 						->set_is_enqueued();
 				}
 
-				if($this->get_parent()->usercentrics->is_active()) {
-					$this->get_script($script['id'])
-						->set_consent_required()
-						->set_custom_attributes(' data-usercentrics="'.$script['entry_label'].'"');
-				}
+				add_action('init', function() use ($script){
+					if($this->get_parent()->usercentrics->is_active()) {
+						$this->get_script($script['id'])
+							->set_consent_required()
+							->set_custom_attributes(' data-usercentrics="'.$script['entry_label'].'"');
+					}
+				});
 			}
 		}
 
