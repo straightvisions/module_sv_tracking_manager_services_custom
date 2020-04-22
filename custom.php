@@ -51,26 +51,26 @@ class custom extends modules {
 			->set_title(__('Custom Scripts', 'sv_tracking_manager'))
 			->load_type('group');
 
-		$this->get_setting('custom_scripts')->run_type()->add_child($this)
+		$this->get_setting('custom_scripts')->run_type()->add_child()
 			->set_ID('entry_label')
 			->set_title(__('Entry Label', 'sv_tracking_manager'))
 			->set_description(__('This Label will be used as Entry Title for this Settings Group. When using Usercentrics, use the exact same label for the Script as Usercentrics.', 'sv_tracking_manager'))
 			->load_type('text')
 			->set_placeholder('Entry #...');
 
-		$this->get_setting('custom_scripts')->run_type()->add_child($this)
+		$this->get_setting('custom_scripts')->run_type()->add_child()
 			->set_ID('id')
 			->set_title(__('ID', 'sv_tracking_manager'))
 			->set_description(__('Each Script needs an unique ID.', 'sv_tracking_manager'))
 			->load_type('text');
 
-		$this->get_setting('custom_scripts')->run_type()->add_child($this)
+		$this->get_setting('custom_scripts')->run_type()->add_child()
 			->set_ID('url')
 			->set_title(__('URL', 'sv_tracking_manager'))
 			->set_description(__('Script will be attached from this URL', 'sv_tracking_manager'))
 			->load_type('url');
 
-		$this->get_setting('custom_scripts')->run_type()->add_child($this)
+		$this->get_setting('custom_scripts')->run_type()->add_child()
 			->set_ID('snippet')
 			->set_title(__('Snippet', 'sv_tracking_manager'))
 			->set_description(__('Snippet will be saved in a .JS-file and attached.', 'sv_tracking_manager'))
