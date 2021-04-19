@@ -101,6 +101,14 @@ class custom extends modules {
 						$this->get_script($script['id'])
 							->set_consent_required()
 							->set_custom_attributes(' data-usercentrics="'.$script['entry_label'].'"');
+
+						add_filter( 'rocket_minify_excluded_external_js', function ($pattern) use($script){
+							if(strlen($script['url']) > 0){
+								$pattern[] = $script['url'];
+							}
+
+							return $pattern;
+						} );
 					}
 				});
 			}
