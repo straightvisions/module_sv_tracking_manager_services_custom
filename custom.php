@@ -74,7 +74,7 @@ class custom extends modules {
 			->set_ID('snippet')
 			->set_title(__('Snippet', 'sv_tracking_manager'))
 			->set_description(__('Snippet will be saved in a .JS-file and attached.', 'sv_tracking_manager'))
-			->load_type('textarea');
+			->load_type('javascript');
 
 		add_action('update_option_'.$this->get_setting('custom_scripts')->get_field_id(), array($this, 'setting_updated'), 10, 2);
 
