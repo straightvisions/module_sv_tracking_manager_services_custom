@@ -97,7 +97,7 @@ class custom extends modules {
 				}
 
 				add_action('init', function() use ($script){
-					if($this->get_parent()->usercentrics->is_active()) {
+					if($this->get_module('usercentrics')->is_active()) {
 						$this->get_script($script['id'])
 							->set_consent_required()
 							->set_custom_attributes(' data-usercentrics="'.$script['entry_label'].'"');
