@@ -16,8 +16,8 @@ class custom extends modules {
 	private $base_url					= false;
 
 	public function init() {
-		$this->base_path				= trailingslashit(trailingslashit(wp_upload_dir()['basedir']).$this->get_root()->get_prefix());
-		$this->base_url					= trailingslashit(trailingslashit(wp_upload_dir()['baseurl']).$this->get_root()->get_prefix());
+		$this->base_path				= trailingslashit(trailingslashit(wp_upload_dir()['basedir']).'straightvisions/cache/'.$this->get_root()->get_prefix());
+		$this->base_url					= trailingslashit(trailingslashit(wp_upload_dir()['baseurl']).'straightvisions/cache/'.$this->get_root()->get_prefix());
 
 		// Section Info
 		$this->set_section_title( __('Custom Scripts', 'sv_tracking_manager' ) )
