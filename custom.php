@@ -1,24 +1,8 @@
 <?php
 namespace sv_tracking_manager;
 
-/**
- * @version         1.000
- * @author			straightvisions GmbH
- * @package			sv_tracking_manager
- * @copyright		2019 straightvisions GmbH
- * @link			https://straightvisions.com
- * @since			1.000
- * @license			See license.txt or https://straightvisions.com
- */
-
 class custom extends modules {
-	private $base_path					= false;
-	private $base_url					= false;
-
 	public function init() {
-		$this->base_path				= trailingslashit(trailingslashit(wp_upload_dir()['basedir']).'straightvisions/cache/'.$this->get_root()->get_prefix());
-		$this->base_url					= trailingslashit(trailingslashit(wp_upload_dir()['baseurl']).'straightvisions/cache/'.$this->get_root()->get_prefix());
-
 		// Section Info
 		$this->set_section_title( __('Custom Scripts', 'sv_tracking_manager' ) )
 			->set_section_desc(__( 'Setup custom tracking scripts.', 'sv_tracking_manager' ))
@@ -123,26 +107,23 @@ class custom extends modules {
 			}
 		}
 	}
-	public function get_base_path(): string{
-		return $this->base_path;
-	}
-	public function get_base_url(): string{
-		return $this->base_url;
-	}
 	public function get_file_path(string $ID): string{
-		return $this->get_base_path().md5($ID).'.js';
+		return $this->get_path_cached(md5($ID).'.js');
 	}
 	public function get_file_url(string $ID): string{
-		return $this->get_base_url().md5($ID).'.js';
+		return $this->get_url_cached(md5($ID).'.js');
 	}
 	public function save(string $ID, string $content): bool{
-		if(!is_dir($this->get_base_path())){
-			mkdir($this->get_base_path());
-		}
 		if(file_put_contents($this->get_file_path($ID),$content) !== false){
 			return true;
 		}else{
 			return false;
 		}
+	}
+	public function get_path_cached(string $file = ''): string{
+		return static::$scripts->create( $this )->get_path_cached($file);
+	}
+	public function get_url_cached(string $file = ''): string{
+		return static::$scripts->create( $this )->get_url_cached($file);
 	}
 }
