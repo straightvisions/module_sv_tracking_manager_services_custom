@@ -114,7 +114,9 @@ class custom extends modules {
 		return $this->get_url_cached(md5($ID).'.js');
 	}
 	public function save(string $ID, string $content): bool{
-		if(file_put_contents($this->get_file_path($ID),$content) !== false){
+		$result		= file_put_contents($this->get_file_path($ID),$content);
+
+		if($result !== false){
 			return true;
 		}else{
 			return false;
